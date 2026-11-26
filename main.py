@@ -2,12 +2,18 @@
 
 Writes the competition entry line to $MAKEFUN_OUTPUT_DIR/entry.txt
 (or /output/entry.txt), with no trailing newline.
+
+Gate: the entry must be a single line of 1-200 chars, and the judge
+wants a clear setup-and-payoff joke (here: the bank says no, so the
+loan pitch becomes a live heist "demo").
 """
 
 import os
 import sys
 
 ENTRY = "I asked the bank for a loan to open an escape room; they said no, so I locked the door and started the demo."
+
+MAX_CHARS = 200
 
 # Why it works: a rejected entrepreneur turns bank robber on the spot,
 # but still calls the heist a "demo" -- the polite startup pitch never
@@ -17,8 +23,8 @@ ENTRY = "I asked the bank for a loan to open an escape room; they said no, so I 
 def validate(entry: str) -> None:
     if not entry:
         sys.exit("entry is empty")
-    if len(entry) > 200:
-        sys.exit(f"entry is {len(entry)} chars, over the 200-char limit")
+    if len(entry) > MAX_CHARS:
+        sys.exit(f"entry is {len(entry)} chars, over the {MAX_CHARS}-char limit")
     if "\r" in entry or "\n" in entry:
         sys.exit("entry must be a single line (no CR/LF)")
 
